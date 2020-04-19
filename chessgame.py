@@ -2,8 +2,8 @@
 import math
 import itertools
 
-from game import RulesEnforcer
-from ai import ChessAi
+from .game import RulesEnforcer
+from .ai import ChessAi
 
 
 class ChessGame(RulesEnforcer,ChessAi):

@@ -1,5 +1,5 @@
 import itertools
-from rules import RulesEnforcer
+from .rules import RulesEnforcer
 
 """
 Movement behavior for each of the different pieces.

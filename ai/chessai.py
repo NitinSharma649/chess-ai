@@ -25,7 +25,7 @@ class TreeNode(object):
 
     def see_children(self):
         for i in self.children:
-            print i.data
+            print((i.data))
 
 class ChessAi(object):
     #set the value of each of the pieces to be used in the hard coded heuristic algorithm
@@ -234,7 +234,7 @@ class ChessAi(object):
 
                 #now we need to generate all possible moves in the future...
                 #we will do this by iterating through the pos moves dictionary
-                for start, moves in pos_moves.items():
+                for start, moves in list(pos_moves.items()):
                     for move in moves:
                         current_pos = position.data[0]
                         new_pos = ChessAi.make_hypothetical_move(start, move, current_pos)

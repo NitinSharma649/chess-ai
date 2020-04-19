@@ -1,6 +1,6 @@
 """Main entry point into the game"""
 
-from chessgame import ChessGame
+from .chessgame import ChessGame
 
 if __name__ == '__main__':
 
@@ -11,8 +11,8 @@ if __name__ == '__main__':
 
     while not current_game.game_over:
         print("Your turn: ")
-        start_point = raw_input("Enter starting point coordinate: ")
-        end_point = raw_input("Enter ending point coordinate: ")
+        start_point = input("Enter starting point coordinate: ")
+        end_point = input("Enter ending point coordinate: ")
         current_game.make_move(start_point,end_point)
         print("You have made a move!\n")
         current_game.see_board()

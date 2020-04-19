@@ -1,5 +1,5 @@
 from collections import defaultdict
-import pieces
+from . import pieces
 
 class RulesEnforcer(object):
     """
@@ -8,9 +8,9 @@ class RulesEnforcer(object):
     """
 
     letter_dict = {'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7}
-    pos_letters = letter_dict.keys()
+    pos_letters = list(letter_dict.keys())
     pos_nums = [1,2,3,4,5,6,7,8]
-    letter_dict_rev = dict((v,k) for k,v in letter_dict.iteritems())
+    letter_dict_rev = dict((v,k) for k,v in letter_dict.items())
     possible_pieces = ['p','r','n','b','q','k']
     
     def __init__(self):

@@ -27,7 +27,7 @@ def load_data(dir='/mnt/games'):
         try:
             yield h5py.File(fn, 'r')
         except:
-            print 'could not read', fn
+            print('could not read', fn)
 
 
 def get_data(series=['x', 'xr']):
@@ -38,7 +38,7 @@ def get_data(series=['x', 'xr']):
                 data[i].append(f[s].value)
         except:
             raise
-            print 'failed reading from', f
+            print('failed reading from', f)
 
     def stack(vectors):
         if len(vectors[0].shape) > 1:
@@ -49,10 +49,10 @@ def get_data(series=['x', 'xr']):
     data = [stack(d) for d in data]
 
     test_size = 10000.0 / len(data[0])
-    print 'Splitting', len(data[0]), 'entries into train/test set'
+    print('Splitting', len(data[0]), 'entries into train/test set')
     data = train_test_split(*data, test_size=test_size)
 
-    print data[0].shape[0], 'train set', data[1].shape[0], 'test set'
+    print(data[0].shape[0], 'train set', data[1].shape[0], 'test set')
     return data
 
 
@@ -111,7 +111,7 @@ def get_function(Ws_s, bs_s, dropout=False, update=False):
     else:
         updates = []
 
-    print 'compiling function'
+    print('compiling function')
     f = theano.function(
         inputs=[xc_s, xr_s, xp_s, learning_rate],
         outputs=[loss_f, reg_f, loss_a_f, loss_b_f, loss_c_f],
@@ -123,9 +123,9 @@ def get_function(Ws_s, bs_s, dropout=False, update=False):
 def train():
     Xc_train, Xc_test, Xr_train, Xr_test, Xp_train, Xp_test = get_data(['x', 'xr', 'xp'])
     for board in [Xc_train[0], Xp_train[0]]:
-        for row in xrange(8):
-            print ' '.join('%2d' % x for x in board[(row*8):((row+1)*8)])
-        print
+        for row in range(8):
+            print(' '.join('%2d' % x for x in board[(row*8):((row+1)*8)]))
+        print()
 
     n_in = 12 * 64
 
@@ -150,17 +150,17 @@ def train():
         loss, reg, loss_a, loss_b, loss_c = train(Xc_train[lo:hi], Xr_train[lo:hi], Xp_train[lo:hi], learning_rate)
 
         zs = [loss, loss_a, loss_b, loss_c, reg]
-        print 'iteration %6d learning rate %12.9f: %s' % (i, learning_rate, '\t'.join(['%12.9f' % z for z in zs]))
+        print('iteration %6d learning rate %12.9f: %s' % (i, learning_rate, '\t'.join(['%12.9f' % z for z in zs])))
 
         if i % 200 == 0:
             test_loss, test_reg, _, _, _ = test(Xc_test, Xr_test, Xp_test, learning_rate)
-            print 'test loss %12.9f' % test_loss
+            print('test loss %12.9f' % test_loss)
 
             if test_loss < best_test_loss:
-                print 'new record!'
+                print('new record!')
                 best_test_loss = test_loss
 
-                print 'dumping pickled model'
+                print('dumping pickled model')
                 f = open('model.pickle', 'w')
                 def values(zs):
                     return [z.get_value(borrow=True) for z in zs]

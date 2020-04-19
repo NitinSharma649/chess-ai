@@ -5,7 +5,7 @@ rng = numpy.random
 
 def get_parameters(n_in=None, n_hidden_units=2048, n_hidden_layers=None, Ws=None, bs=None):
     if Ws is None or bs is None:
-        print 'initializing Ws & bs'
+        print('initializing Ws & bs')
         if type(n_hidden_units) != list:
             n_hidden_units = [n_hidden_units] * n_hidden_layers
         else:
@@ -21,7 +21,7 @@ def get_parameters(n_in=None, n_hidden_units=2048, n_hidden_layers=None, Ws=None
                 size=(n_in, n_out)), dtype=theano.config.floatX)
 
         
-        for l in xrange(n_hidden_layers):
+        for l in range(n_hidden_layers):
             if l == 0:
                 n_in_2 = n_in
             else:
@@ -44,7 +44,7 @@ def get_parameters(n_in=None, n_hidden_units=2048, n_hidden_layers=None, Ws=None
 
 
 def get_model(Ws_s, bs_s, dropout=False):
-    print 'building expression graph'
+    print('building expression graph')
     x_s = T.matrix('x')
 
     if type(dropout) != list:
@@ -63,7 +63,7 @@ def get_model(Ws_s, bs_s, dropout=False):
 
     last_layer = binary_layer
     n = len(Ws_s)
-    for l in xrange(n - 1):
+    for l in range(n - 1):
         # h = T.tanh(T.dot(last_layer, Ws[l]) + bs[l])
         h = T.dot(last_layer, Ws_s[l]) + bs_s[l]
         h = h * (h > 0)
