@@ -1,6 +1,8 @@
 """Main entry point into the game"""
 
-from .chessgame import ChessGame
+from chessgame import ChessGame
+
+print(__name__)
 
 if __name__ == '__main__':
 
